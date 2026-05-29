@@ -60,25 +60,55 @@
 </div>
 
 <script>
-    const correctCode = "A7KQ2MZ0XJP4B8N1CY0LT5R";
+    const correctCodes = [
+    "Q9X2MZ7K0LP4V8N1TA6C5R3BD",
+    "H7K0PZ9X1M4Q8N6T2V5R3LDAJ",
+    "T3N8VQ1Z0K6P9M2X7R5A4LC8B",
+    "M6R1X9P0K2Z7N4V8Q3T5L7A0C",
+    "A5C9T0R7X2M8P1V6K3ZQ4N8LDB"
+    ];
 
     function redeemCode() {
         const userCode = document.getElementById("codeInput").value.trim();
         const message = document.getElementById("message");
 
-        message.textContent = "Checking...";
         message.className = "";
+        message.textContent = "Checking.";
 
         setTimeout(() => {
-            if (userCode === correctCode) {
+            message.textContent = "Checking..";
+        }, 300);
+
+        setTimeout(() => {
+            message.textContent = "Checking...";
+        }, 600);
+
+        setTimeout(() => {
+            message.textContent = "Checking.";
+        }, 900);
+
+        setTimeout(() => {
+            message.textContent = "Checking..";
+        }, 1200);
+
+        setTimeout(() => {
+            message.textContent = "Checking...";
+        }, 1500);
+
+        setTimeout(() => {
+            message.textContent = "Checking.";
+        }, 1800);
+
+        setTimeout(() => {
+            if (correctCodes.includes(userCode)) {
                 message.textContent = "Code redeemed! =)";
                 message.className = "success";
             } else {
                 message.textContent = "Invalid code!";
                 message.className = "error";
             }
-        }, 2500);
-    }
+        }, 2100);
+}
 </script>
 
 </body>
