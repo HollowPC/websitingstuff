@@ -60,54 +60,61 @@
 </div>
 
 <script>
-    const correctCodes = [
+    const correctCodes = new Set([
     "Q9X2MZ7K0LP4V8N1TA6C5R3BD",
     "H7K0PZ9X1M4Q8N6T2V5R3LDAJ",
     "T3N8VQ1Z0K6P9M2X7R5A4LC8B",
     "M6R1X9P0K2Z7N4V8Q3T5L7A0C",
     "A5C9T0R7X2M8P1V6K3ZQ4N8LDB"
-    ];
+    ]);
 
-    function redeemCode() {
-        const userCode = document.getElementById("codeInput").value.trim();
-        const message = document.getElementById("message");
+    const usedCodes = new Set([
+    "A7KQ2MZ0XJP4B8N1CY0LT5R"    
+    ]);
 
-        message.className = "";
-        message.textContent = "Checking.";
+function redeemCode() {
+    const userCode = document.getElementById("codeInput").value.trim();
+    const message = document.getElementById("message");
 
-        setTimeout(() => {
-            message.textContent = "Checking..";
-        }, 300);
+    message.className = "";
 
-        setTimeout(() => {
-            message.textContent = "Checking...";
-        }, 600);
+    // immediate length check
+    if (userCode.length !== 25) {
+        message.textContent = "Code must be 25 letters long!!";
+        message.className = "error";
+        return;
+    }
 
-        setTimeout(() => {
-            message.textContent = "Checking.";
-        }, 900);
+    // loading animation
+    let dots = 0;
+    message.textContent = "Checking";
+    
+    const loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4; // 0 → 3 dots
+        message.textContent = "Checking" + ".".repeat(dots);
+    }, 300);
 
-        setTimeout(() => {
-            message.textContent = "Checking..";
-        }, 1200);
+    // stop loading after delay and check code
+    setTimeout(() => {
+        if (!correctCodes.has(userCode)) {
+            message.textContent = "Invalid code!";
+            message.className = "error";
+            return;
+        }
 
-        setTimeout(() => {
-            message.textContent = "Checking...";
-        }, 1500);
+        if (usedCodes.has(userCode)) {
+            message.textContent = "Code already used..";
+            message.className = "error";
+            return;
+        }
 
-        setTimeout(() => {
-            message.textContent = "Checking.";
-        }, 1800);
+        usedCodes.add(userCode);
 
-        setTimeout(() => {
-            if (correctCodes.includes(userCode)) {
-                message.textContent = "Code redeemed! =)";
-                message.className = "success";
-            } else {
-                message.textContent = "Invalid code!";
-                message.className = "error";
-            }
-        }, 2100);
+        message.textContent = "Code redeemed! =)";
+        message.className = "success";
+
+    }, 2000);
+}
 }
 </script>
 
