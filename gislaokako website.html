@@ -72,48 +72,48 @@
     "A7KQ2MZ0XJP4B8N1CY0LT5R"    
     ]);
 
-function redeemCode() {
-    const userCode = document.getElementById("codeInput").value.trim();
-    const message = document.getElementById("message");
+    function redeemCode() {
+        const userCode = document.getElementById("codeInput").value.trim();
+        const message = document.getElementById("message");
 
-    message.className = "";
-
-    // immediate length check
-    if (userCode.length !== 25) {
-        message.textContent = "Code must be 25 letters long!!";
-        message.className = "error";
-        return;
-    }
-
-    // loading animation
-    let dots = 0;
-    message.textContent = "Checking";
+        message.className = "";
     
-    const loadingInterval = setInterval(() => {
-        dots = (dots + 1) % 4; // 0 → 3 dots
-        message.textContent = "Checking" + ".".repeat(dots);
-    }, 300);
-
-    // stop loading after delay and check code
-    setTimeout(() => {
-        if (!correctCodes.has(userCode)) {
-            message.textContent = "Invalid code!";
+        // immediate length check
+        if (userCode.length !== 25) {
+            message.textContent = "Code must be 25 letters long!!";
             message.className = "error";
             return;
         }
 
-        if (usedCodes.has(userCode)) {
-            message.textContent = "Code already used..";
-            message.className = "error";
-            return;
-        }
+        // loading animation
+        let dots = 0;
+        message.textContent = "Checking";
+    
+        const loadingInterval = setInterval(() => {
+            dots = (dots + 1) % 4; // 0 → 3 dots
+            message.textContent = "Checking" + ".".repeat(dots);
+        }, 300);
 
-        usedCodes.add(userCode);
+        // stop loading after delay and check code
+        setTimeout(() => {
+            if (!correctCodes.has(userCode)) {
+                message.textContent = "Invalid code!";
+                message.className = "error";
+                return;
+            }
 
-        message.textContent = "Code redeemed! =)";
-        message.className = "success";
+            if (usedCodes.has(userCode)) {
+                message.textContent = "Code already used..";
+                message.className = "error";
+                return;
+            }
 
-    }, 2000);
+            usedCodes.add(userCode);
+    
+            message.textContent = "Code redeemed! =)";
+            message.className = "success";
+
+        }, 2000);
 }
 }
 </script>
